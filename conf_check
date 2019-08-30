@@ -1,0 +1,39 @@
+#!/bin/sh
+#
+# Description: Script que verifica la configuración de listeners
+# 	MQ de la aplicación TRS
+# author: Roque Sosa <sadalmelik828@gmail.com>
+# Since: 2019
+# 
+
+## Verifica la correcta configuracion de la ruta del demonio
+if [ -z "$PATHLSR" ]; then
+	echo "Error: La propiedad PATHLSR no ha sido definida."
+	exit 1
+fi
+
+## Verifica la correcta configuracion del nombre del demonio
+if [ -z $DAEMON ]; then
+	echo "Error: La propiedad DAEMON no ha sido definida."
+	exit 2
+fi
+
+## Verifica la correcta configuracion de la descripcion del demonio
+if [ -z "$DESC" ]; then
+	echo "Error: La propiedad DESC no ha sido definida."
+	exit 3
+fi
+
+## Verifica la correcta configuracion del usuario que ejecutara el demonio
+if [ -z $USER ]; then
+	echo "Error: La propiedad USER no ha sido definida."
+	exit 4
+fi
+
+## Verifica los permisos del demonio
+if [ ! -r "$PATHLSR$DAEMON" -o ! -x "$PATHLSR$DAEMON" ]; then
+	echo "Error: El archivo ${DAEMON} no tiene los permisos adecuados para su ejecución."
+	exit 5
+fi
+
+exit 0

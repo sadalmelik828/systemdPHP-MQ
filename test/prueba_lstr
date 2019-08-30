@@ -1,0 +1,14 @@
+#!/usr/bin/php -q
+<?php
+set_time_limit(0);
+while (true) {
+    $fp = fopen("/home/roque/Descargas/MQ/systemdMQLinux/test/test.txt", "a+");
+    //echo MQSERIES_MQCC_OK . "\n";
+    //echo MQSERIES_MQCC_FAILED . "\n";
+    //echo MQSERIES_MQCC_WARNING . "\n";
+    //echo mqseries_strerror("2055") . "\n";
+    fputs($fp, mqseries_strerror("2055") . "\n");
+    fclose($fp);
+    sleep(5);
+}
+?>

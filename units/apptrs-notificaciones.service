@@ -1,0 +1,17 @@
+[Unit]
+Description=Notificaciones MQ para TRS
+After=network.target local-fs.target remote-fs.target nss-lookup.target
+Documentation=https://pecl.php.net/package/mqseries
+
+[Service]
+Type=forking
+User=roque
+EnvironmentFile=/home/roque/Descargas/MQ/systemdMQLinux/environment/notificaciones_env
+ExecStartPre=/home/roque/Descargas/MQ/systemdMQLinux/conf_check
+ExecStart=/home/roque/Descargas/MQ/systemdMQLinux/mqtrsctl start
+ExecStop=/home/roque/Descargas/MQ/systemdMQLinux/mqtrsctl stop
+ExecReload=/home/roque/Descargas/MQ/systemdMQLinux/mqtrsctl reload
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target

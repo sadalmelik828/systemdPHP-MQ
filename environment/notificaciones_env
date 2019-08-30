@@ -1,0 +1,6 @@
+## Variables de entorno para el listener de Notificaciones MQ
+
+PATHLSR=/home/roque/Descargas/MQ/systemdMQLinux/test/
+DAEMON=prueba_lstr
+DESC="Demonio de prueba para registrar en systemd"
+USER=roque

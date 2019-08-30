@@ -1,0 +1,38 @@
+#!/bin/sh
+#
+# Description: Script que contiene los comandos de control 
+#	de los listeners MQ de la aplicación TRS
+# author: Roque Sosa <sadalmelik828@gmail.com>
+# Since: 2019
+# 
+
+## Definicion de comandos para controlar los diferentes listeners MQ
+case "$1" in
+	start)
+		echo "Iniciando ${DESC}."
+		if ! /usr/bin/pgrep -x -u ${USER} ${DAEMON} >/dev/null 2>&1; then
+			${PATHLSR}${DAEMON} &
+		else
+			echo "El servicio ${DAEMON} ya ha sido iniciado."
+		fi
+		;;
+	stop)
+		echo "Deteniendo ${DESC}."
+		PID=`pgrep -x -u ${USER} ${DAEMON}`
+		if [ -n $PID ]; then
+			kill $PID >/dev/null 2>&1
+		else
+			echo "No se puede detener el servicio ${DAEMON} porque no se encuentra el proceso."
+		fi
+		;;
+	restart|reload)
+		$0 stop
+		$0 start
+		;;
+	*)
+		echo "Para el uso del servicio ${DAEMON} los comandos disponibles son: start|stop|restart|reload"
+		exit 1
+		;;
+esac
+
+exit 0
